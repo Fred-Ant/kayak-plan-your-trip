@@ -1,0 +1,18 @@
+# Dépendances du projet Kayak (versions figées en fin de projet avec "pip freeze")
+# Collecte
+requests
+scrapy
+# Manipulation des données
+pandas
+# Configuration / secrets
+python-dotenv
+# Data Lake (AWS S3)
+boto3
+# Data Warehouse (PostgreSQL sur AWS RDS)
+sqlalchemy
+psycopg2-binary
+# Visualisation
+plotly
+nbformat
+# Notebooks dans VSCode
+ipykernel

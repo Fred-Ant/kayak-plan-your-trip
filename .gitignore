@@ -1,0 +1,28 @@
+# --- Secrets : ne jamais publier ---
+.env
+*.env
+!.env.example
+keys.py
+credentials*
+
+# --- Données : elles vivent dans le Data Lake S3, pas dans Git ---
+data/raw/*
+data/processed/*
+!data/**/.gitkeep
+
+# --- Python / Jupyter ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# --- Scrapy ---
+.scrapy/
+
+# --- Éditeur / système (Windows, OneDrive) ---
+.vscode/
+desktop.ini
+Thumbs.db
+.DS_Store
