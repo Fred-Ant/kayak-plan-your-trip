@@ -2,6 +2,7 @@
 # Collecte
 requests
 scrapy
+scrapy-playwright  # pages chargées par un navigateur réel (vérification JavaScript de Booking)
 # Manipulation des données
 pandas
 # Configuration / secrets
