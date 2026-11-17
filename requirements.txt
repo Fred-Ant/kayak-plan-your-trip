@@ -1,19 +1,28 @@
-# Dépendances du projet Kayak (versions figées en fin de projet avec "pip freeze")
+# Dépendances du projet Kayak – versions figées (environnement conda "kayak", Python 3.11, novembre 2026)
+# Installation : pip install -r requirements.txt   puis   playwright install chromium
+
 # Collecte
-requests
-scrapy
-scrapy-playwright  # pages chargées par un navigateur réel (vérification JavaScript de Booking)
+requests==2.34.2
+Scrapy==2.19.0
+scrapy-playwright==0.0.48   # pages chargées par un navigateur réel (vérification JavaScript de Booking)
+playwright==1.64.1          # navigateur piloté par scrapy-playwright
+
 # Manipulation des données
-pandas
+pandas==3.1.0
+
 # Configuration / secrets
-python-dotenv
+python-dotenv==1.2.4
+
 # Data Lake (AWS S3)
-boto3
+boto3==1.43.123
+
 # Data Warehouse (PostgreSQL sur AWS RDS)
-sqlalchemy
-psycopg2-binary
+SQLAlchemy==2.1.6
+psycopg2-binary==2.9.13
+
 # Visualisation
-plotly
-nbformat
-# Notebooks dans VSCode
-ipykernel
+plotly==7.1.0
+nbformat==5.11.1
+
+# Notebooks dans VS Code
+ipykernel==7.4.0
