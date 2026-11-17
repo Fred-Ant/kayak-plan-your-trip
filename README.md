@@ -30,8 +30,13 @@ Prévisions collectées le 04/11/2026, pour la période **du 05/11 au 11/11/2026
 |---|---|
 | ![Top 5 des destinations](outputs/maps/top5_destinations.png) | ![Top 20 des hôtels](outputs/maps/top20_hotels.png) |
 
-Cartes interactives (à télécharger puis ouvrir dans un navigateur) :
-[`top5_destinations.html`](outputs/maps/top5_destinations.html) · [`top20_hotels.html`](outputs/maps/top20_hotels.html)
+**Cartes interactives en ligne** (zoom, survol d'un point pour le détail de la destination ou de l'hôtel) :
+[Top 5 des destinations](https://fred-ant.github.io/kayak-plan-your-trip/outputs/maps/top5_destinations.html) ·
+[Top 20 des hôtels](https://fred-ant.github.io/kayak-plan-your-trip/outputs/maps/top20_hotels.html)
+
+> Le fond de carte provient des serveurs OpenStreetMap, gérés par des bénévoles, qui refusent les pages ouvertes
+> directement depuis un disque (`file://`, sans page d'origine) : les cartes sont donc publiées avec **GitHub Pages**.
+> Hors connexion, les images PNG ci-dessus en donnent un aperçu.
 
 **Volumes** : 35 destinations · 350 prévisions journalières · 700 résultats Booking (693 hôtels distincts) · 6 fichiers dans le Data Lake · 3 tables et 1 vue dans le Data Warehouse.
 
@@ -148,6 +153,9 @@ erDiagram
 - **Vue `v_kayak_enriched`** : restitue exactement le fichier `processed/kayak_enriched.csv` du Data Lake
   (vérifié valeur par valeur dans le notebook 05).
 - **ETL rejouable** : schéma recréé et données rechargées dans une seule transaction (tout ou rien).
+- **Maîtrise des coûts** : une fois le projet terminé, la base a été supprimée après création d'un *snapshot* final
+  (`kayak-db-final-snapshot`, chiffré), restaurable à l'identique pour une démonstration. Le Data Lake S3 reste la
+  source de référence : la base peut aussi être reconstruite en relançant le notebook 05.
 
 ## Sécurité et protection des données
 
@@ -165,6 +173,20 @@ erDiagram
 avec une charge minimale sur le site (35 pages, une à la fois, 3 secondes d'intervalle). Les conditions d'utilisation
 de Booking n'autorisent pas la collecte automatisée : en contexte professionnel, il faudrait passer par une source
 autorisée (API partenaire, accord de données).
+
+## Preuves (captures de la console AWS)
+
+Les ressources AWS étant arrêtées ou supprimées après le projet, leur configuration est documentée par des captures
+(identifiant du compte AWS et adresse IP masqués) :
+
+| Capture | Ce qu'elle montre |
+|---|---|
+| [Bucket S3](docs/img/s3_bucket.png) | Organisation du Data Lake en zones `raw/` et `processed/` |
+| [Zone processed](docs/img/s3_processed.png) | Les 3 fichiers nettoyés, dont le fichier enrichi `kayak_enriched.csv` |
+| [Politique IAM](docs/img/iam_policy.png) | Droits de l'utilisateur `kayak-project` limités à un seul bucket |
+| [Refus AccessDenied](docs/img/access_denied.png) | Démonstration du moindre privilège (notebook 04) |
+| [Configuration RDS](docs/img/rds_configuration.png) | PostgreSQL 18.3, `db.t4g.micro`, Single-AZ, stockage chiffré |
+| [Connectivité RDS](docs/img/rds_connectivity.png) | Pare-feu : une seule adresse IP autorisée en entrée (`/32`) |
 
 ## Reproduire le projet
 
